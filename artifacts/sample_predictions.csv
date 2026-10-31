@@ -1,0 +1,5 @@
+input_text,predicted_topic,model
+NASA is designing a telescope to observe stars and distant galaxies.,Space,Multinomial Naive Bayes
+"A graphics engine renders 3D objects using polygons, lighting, and textures.",Computer Graphics,Multinomial Naive Bayes
+"Doctors studied symptoms, treatment outcomes, and patient recovery.",Medicine,Multinomial Naive Bayes
+"The circuit uses a transistor, resistor, and voltage regulator.",Electronics,Multinomial Naive Bayes
