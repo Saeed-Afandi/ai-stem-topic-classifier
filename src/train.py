@@ -66,22 +66,28 @@ def build_pipeline(model):
 
 def save_top_terms(pipeline, target_names, top_n=15):
     model = pipeline.named_steps["model"]
-    if not hasattr(model, "coef_"):
-        return
-
     vectorizer = pipeline.named_steps["tfidf"]
     feature_names = vectorizer.get_feature_names_out()
 
+    if hasattr(model, "coef_"):
+        class_weights = model.coef_
+        score_name = "weight"
+    elif hasattr(model, "feature_log_prob_"):
+        class_weights = model.feature_log_prob_
+        score_name = "log_probability"
+    else:
+        return
+
     rows = []
     for class_index, class_name in enumerate(target_names):
-        weights = model.coef_[class_index]
+        weights = class_weights[class_index]
         top_indices = weights.argsort()[-top_n:][::-1]
         for rank, idx in enumerate(top_indices, start=1):
             rows.append({
                 "category": DISPLAY_NAMES.get(class_name, class_name),
                 "rank": rank,
                 "term": feature_names[idx],
-                "weight": float(weights[idx]),
+                score_name: float(weights[idx]),
             })
 
     pd.DataFrame(rows).to_csv(ARTIFACTS / "top_terms.csv", index=False)
