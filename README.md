@@ -80,6 +80,20 @@ The project uses the 20 Newsgroups dataset available through scikit-learn. The t
 
 Headers, footers, and quoted replies are removed to reduce easy source-specific clues and make the classification task focus more on text content.
 
+## Current Results
+
+The completed training run compared three classifiers:
+
+| Model | Accuracy |
+| --- | ---: |
+| Multinomial Naive Bayes | 85.37% |
+| Linear SVC | 82.44% |
+| Logistic Regression | 82.12% |
+
+The best model was **Multinomial Naive Bayes**, with **85.37% test accuracy**.
+
+See [RESULTS.md](RESULTS.md) for the full result summary, sample predictions, and the confusion matrix.
+
 ## Outputs
 
 After training, the project creates:
