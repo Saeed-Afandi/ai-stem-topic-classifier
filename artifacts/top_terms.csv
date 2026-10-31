@@ -1,0 +1,61 @@
+category,rank,term,log_probability
+Computer Graphics,1,graphics,-6.461637119042417
+Computer Graphics,2,thanks,-6.651822655451065
+Computer Graphics,3,files,-6.865068659543793
+Computer Graphics,4,file,-6.883337960578422
+Computer Graphics,5,image,-6.913826548530775
+Computer Graphics,6,know,-6.9223471826067655
+Computer Graphics,7,does,-6.98410516197276
+Computer Graphics,8,program,-7.013457184099416
+Computer Graphics,9,looking,-7.0533622980866735
+Computer Graphics,10,hi,-7.083222119787247
+Computer Graphics,11,need,-7.132913409448665
+Computer Graphics,12,format,-7.146201735959086
+Computer Graphics,13,help,-7.1524907804040385
+Computer Graphics,14,windows,-7.172858020103714
+Computer Graphics,15,3d,-7.180229487834754
+Electronics,1,use,-6.913381700565665
+Electronics,2,like,-6.943384982844346
+Electronics,3,know,-7.056638030800505
+Electronics,4,does,-7.068021921322863
+Electronics,5,power,-7.074380766809283
+Electronics,6,used,-7.126492885627284
+Electronics,7,don,-7.160799253882416
+Electronics,8,good,-7.17483258508083
+Electronics,9,thanks,-7.218526557730137
+Electronics,10,circuit,-7.225674457348995
+Electronics,11,ve,-7.287703082345878
+Electronics,12,want,-7.2909010932887774
+Electronics,13,just,-7.330883834214106
+Electronics,14,work,-7.409341920988611
+Electronics,15,current,-7.410974149383013
+Medicine,1,gordon,-6.962694410656485
+Medicine,2,gordon banks,-6.970457490030206
+Medicine,3,banks,-6.981307071719225
+Medicine,4,geb,-6.985475626632548
+Medicine,5,pitt edu,-6.991164758563935
+Medicine,6,pitt,-6.991578902286215
+Medicine,7,edu,-7.005298347446976
+Medicine,8,skepticism,-7.016896336626365
+Medicine,9,chastity,-7.020665774243704
+Medicine,10,n3jxp,-7.020665774243704
+Medicine,11,chastity intellect,-7.020665774243704
+Medicine,12,n3jxp skepticism,-7.020665774243704
+Medicine,13,skepticism chastity,-7.020665774243704
+Medicine,14,banks n3jxp,-7.020665774243704
+Medicine,15,don,-7.021349331929568
+Space,1,space,-6.291087378379883
+Space,2,nasa,-6.972120677896963
+Space,3,like,-7.049701192996502
+Space,4,just,-7.087285611250288
+Space,5,orbit,-7.133428874566644
+Space,6,launch,-7.214061183772346
+Space,7,think,-7.2171556950789
+Space,8,moon,-7.247276744989753
+Space,9,earth,-7.290742941393826
+Space,10,don,-7.35140076698697
+Space,11,shuttle,-7.404557551412601
+Space,12,people,-7.413395093708122
+Space,13,know,-7.446773960386404
+Space,14,time,-7.450879774000583
+Space,15,long,-7.528002452521641

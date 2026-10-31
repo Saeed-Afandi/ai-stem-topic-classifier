@@ -24,6 +24,7 @@ This page contains the outputs from an actual training run of the project.
 | A graphics engine renders 3D objects using polygons, lighting, and textures. | Computer Graphics |
 | Doctors studied symptoms, treatment outcomes, and patient recovery. | Medicine |
 | The circuit uses a transistor, resistor, and voltage regulator. | Electronics |
+| A medical imaging system analyzes scans to support clinical research. | Medicine |
 
 ## Explainability
 
