@@ -1,0 +1,132 @@
+name: Train AI STEM Topic Classifier
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "requirements.txt"
+      - "sample_inputs.txt"
+      - ".github/workflows/train.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Train and evaluate models
+        run: python src/train.py
+
+      - name: Generate sample predictions and results page
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import joblib
+          import pandas as pd
+
+          root = Path(".")
+          artifacts = root / "artifacts"
+          bundle = joblib.load(artifacts / "best_model.joblib")
+          pipeline = bundle["pipeline"]
+          target_names = bundle["target_names"]
+          display_names = bundle["display_names"]
+
+          samples = [
+              line.strip()
+              for line in (root / "sample_inputs.txt").read_text().splitlines()
+              if line.strip()
+          ]
+          predictions = pipeline.predict(samples)
+
+          rows = []
+          for text, pred in zip(samples, predictions):
+              key = target_names[int(pred)]
+              rows.append({
+                  "input_text": text,
+                  "predicted_topic": display_names.get(key, key),
+                  "model": bundle["model_name"],
+              })
+
+          pd.DataFrame(rows).to_csv(
+              artifacts / "sample_predictions.csv", index=False
+          )
+
+          results = pd.read_csv(artifacts / "model_results.csv")
+          best = results.iloc[0]
+
+          lines = [
+              "# Model Results",
+              "",
+              "This page contains the outputs from an actual training run of the project.",
+              "",
+              "## Accuracy",
+              "",
+              "| Model | Accuracy |",
+              "| --- | ---: |",
+          ]
+
+          for _, row in results.iterrows():
+              lines.append(f"| {row['model']} | {row['accuracy']:.2%} |")
+
+          lines += [
+              "",
+              f"**Best model:** {best['model']} ({best['accuracy']:.2%} accuracy)",
+              "",
+              "## Confusion Matrix",
+              "",
+              "![Confusion Matrix](artifacts/confusion_matrix.png)",
+              "",
+              "## Sample Predictions",
+              "",
+              "| Input | Predicted topic |",
+              "| --- | --- |",
+          ]
+
+          for row in rows:
+              safe_text = row["input_text"].replace("|", "\\|")
+              lines.append(f"| {safe_text} | {row['predicted_topic']} |")
+
+          lines += [
+              "",
+              "## Explainability",
+              "",
+              "The file artifacts/top_terms.csv lists the terms with the strongest",
+              "positive weights for each class in the selected linear model.",
+              "",
+              "## Notes",
+              "",
+              "The dataset is the public 20 Newsgroups corpus loaded through scikit-learn.",
+              "Headers, footers, and quoted replies are removed before training.",
+          ]
+
+          (root / "RESULTS.md").write_text("\n".join(lines) + "\n")
+          PY
+
+      - name: Commit generated results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts RESULTS.md
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+          else
+            git commit -m "Add trained model results [skip ci]"
+            git push
+          fi
