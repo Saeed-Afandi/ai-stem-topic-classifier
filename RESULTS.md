@@ -28,8 +28,7 @@ This page contains the outputs from an actual training run of the project.
 
 ## Explainability
 
-The file artifacts/top_terms.csv lists the terms with the strongest
-positive weights for each class in the selected linear model.
+The file artifacts/top_terms.csv lists the terms most strongly associated with each class in the selected model. For the winning Multinomial Naive Bayes model, these values are based on learned class log probabilities.
 
 ## Notes
 
